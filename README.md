@@ -22,8 +22,8 @@ A RESTful API built with Laravel 10 and Docker, featuring user authentication an
 
 1. Clone the repository:
 ```bash
-git clone <your-repository-url>
-cd <repository-name>
+git clone https://github.com/GhDj/rest-test.git
+cd rest-test
 ```
 
 2. Copy the environment file:
