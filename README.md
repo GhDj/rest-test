@@ -51,10 +51,9 @@ docker compose exec app php artisan key:generate
 docker compose exec app php artisan migrate
 ```
 
-7. Seed the database with a default country:
+7. Run all seeders:
 ```bash
-docker compose exec app php artisan tinker
->>> \App\Models\Country::create(['name' => 'Portugal']);
+docker compose exec app php artisan db:seed
 ```
 
 The application should now be running at `http://localhost:8000`

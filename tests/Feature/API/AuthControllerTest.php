@@ -92,7 +92,7 @@ class AuthControllerTest extends TestCase
             'password' => 'wrongpassword'
         ]);
 
-        $response->assertStatus(422);
+        $response->assertStatus(401);
     }
 
     public function test_user_can_logout()
@@ -308,5 +308,26 @@ class UserControllerTest extends TestCase
 
         $response->assertStatus(422)
             ->assertJsonValidationErrors(['country_id']);
+    }
+
+    public function test_inactive_user_cannot_login()
+    {
+        $user = User::factory()->create([
+            'is_active' => false,
+            'email' => 'inactive@example.com',
+            'password' => bcrypt('password123'),
+            'country_id' => $this->country->id
+        ]);
+
+        $response = $this->postJson('/api/login', [
+            'email' => 'inactive@example.com',
+            'password' => 'password123'
+        ]);
+
+        $response->assertStatus(403)
+            ->assertJson([
+                'status' => false,
+                'message' => 'Account Inactive'
+            ]);
     }
 }
